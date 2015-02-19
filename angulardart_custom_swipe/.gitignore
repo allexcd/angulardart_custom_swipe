@@ -42,15 +42,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-#WebStorm
-.idea
-
-#Repository
-angulardart_custom_swipe/.pub
-angulardart_custom_swipe/packages
-example1/.pub
-example1/packages
-example1/web/packages
-example2/.pub
-example2/packages
-example2/web/packages
+#Pub
+.pub
+packages

@@ -1,0 +1,11 @@
+name: angulardart_custom_swipe
+version: 0.1.0
+author: AlexCDumitru(AlexCD) <email@alexcd.eu>
+description: Custom swipe made for AngularDart using math to detect swipe
+homepage: http://www.alexcd.eu
+environment:
+  sdk: '>=1.0.0 <2.0.0'
+dependencies:
+  angular: '>=1.1.0 <2.0.0'
+transformers:
+- angular

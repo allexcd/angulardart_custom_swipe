@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularDart Custom Swipe Example 1</title>
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        div {
+            min-height: 100%;
+        }
+    </style>
+</head>
+
+<body custom-swipe
+      custom-swipe-right="swipeRight()"
+      custom-swipe-left="swipeLeft()">
+
+<div class="container-fluid wrapper">
+    <h3>Swipe on document to see the messages printed in the console</h3>
+</div>
+
+<script type="application/dart" src="main.dart"></script>
+<script src="packages/browser/dart.js"></script>
+</body>
+</html>
