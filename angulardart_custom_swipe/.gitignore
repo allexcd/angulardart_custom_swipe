@@ -45,3 +45,6 @@ Temporary Items
 #Pub
 .pub
 packages
+
+#Decorator
+pubspec.yaml
