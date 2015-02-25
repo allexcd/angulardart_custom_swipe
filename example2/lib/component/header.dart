@@ -6,7 +6,7 @@ import 'package:angular/angular.dart';
 
 @Component(
     selector: 'header',
-    templateUrl: 'header.html',
+    templateUrl: 'packages/example2/component/header.html',
     useShadowDom: false
 )
 class Header {

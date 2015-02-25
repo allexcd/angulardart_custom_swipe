@@ -1,10 +1,10 @@
 name: example2
-version: 0.1.0
+version: 0.1.1
 author: AlexCDumitru(AlexCD) <email@alexcd.eu>
 description: Example 1 for the custom swipe made for AngularDart
 homepage: http://www.alexcd.eu
 environment:
-  sdk: '>=1.0.0 <2.0.0'
+  sdk: '1.1.0'
 dependencies:
   angular: '>=1.1.0 <2.0.0'
   browser: '>=0.10.0+2 <0.11.0'

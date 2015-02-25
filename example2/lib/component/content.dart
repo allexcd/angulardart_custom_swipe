@@ -6,17 +6,20 @@ import 'package:angular/angular.dart';
 
 @Component(
     selector: 'content',
-    templateUrl: 'content.html',
+    templateUrl: 'packages/example2/component/content.html',
     useShadowDom: false
 )
 class Content {
   String swipeHere = 'Swipe on content';
+  String swipeDirection;
 
   void contentSwipeLeft() {
     print('swiped left on content');
+    swipeDirection = 'swiped left';
   }
 
   void contentSwipeRight() {
     print('swiped right on content');
+    swipeDirection = 'swiped right';
   }
 }
