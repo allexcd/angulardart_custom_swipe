@@ -51,6 +51,9 @@ angulardart_custom_swipe/packages
 example1/.pub
 example1/packages
 example1/web/packages
+example1/web/css/packages
+example1/build
 example2/.pub
 example2/packages
 example2/web/packages
+example2/build
