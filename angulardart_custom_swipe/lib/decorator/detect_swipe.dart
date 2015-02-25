@@ -10,33 +10,11 @@ class detectSwipe{
     dom.window.console.info(msg);
   }
 
-  detectSwipe(dom.Element target) {
-    target.onTouchStart.listen(_touchStart);
-    target.onTouchEnd.listen(_touchEnd);
-
-    // touchEnd does not fire fix
-    // when a touchmove event occurs if the browser decides that this is a scroll event
-    // it will fire touchcancel and never fire touchend.
-    target.onTouchMove.listen((e){
-      setConsoleMsg('prevented touchcancel');
-      e.preventDefault();
-    });
-    //end fix
-  }
-
-  Map _getTouchCoordinates(dom.TouchEvent ev) {
-    dom.Touch t = ev.changedTouches.first;
-    return {
-      "x": t.client.x,
-      "y": t.client.y
-    };
-  }
-
-  double _getTheta() {
+  double _getTheta(Map endCoord, Map startCoord) {
     num dy, dx;
     double theta;
-    dy = _endCoord["y"] - _startCoord["y"]; //opposite cathetus
-    dx = _endCoord["x"] - _startCoord["x"]; //adjacent cathetus
+    dy = endCoord["y"] - startCoord["y"]; //opposite cathetus
+    dx = endCoord["x"] - startCoord["x"]; //adjacent cathetus
 
     //the angle
     theta = Math.atan2(dy, dx);
@@ -46,18 +24,50 @@ class detectSwipe{
     return theta.abs();
   }
 
+  double _getSwipeTheta(){
+    return _getTheta(_endCoord, _startCoord);
+  }
+
+  Map _getTouchCoordinates(dom.TouchEvent ev) {
+    dom.Touch t = ev.changedTouches.first;
+    return {
+        "x": t.client.x,
+        "y": t.client.y
+    };
+  }
+
+  detectSwipe(dom.Element target) {
+    target.onTouchStart.listen(_touchStart);
+    target.onTouchEnd.listen(_touchEnd);
+
+    // touchEnd does not fire fix
+    // When a touchmove event occurs if the browser decides that this is a scroll event
+    // it will fire touchcancel and never fire touchend.
+    // But the scroll must pe allowed on some conditions, if moving the finger up and down on the screen
+    target.onTouchMove.listen((e){
+      double moveTheta = _getTheta(_getTouchCoordinates(e), _startCoord);
+      if(moveTheta > 30 && moveTheta < 150){
+        setConsoleMsg('scroll');
+      } else {
+        setConsoleMsg('disable scroll');
+        e.preventDefault();
+      }
+    });
+    //end fix
+  }
+
   void _makeSwipe() {
     if (_startCoord != null && _endCoord != null) {
       if ((_startCoord["x"] - _endCoord["x"]) < -10) {
         if (swipeRight != null) {
-          if (_getTheta() >= 0 && _getTheta() <= 10) {
+          if (_getSwipeTheta() >= 0 && _getSwipeTheta() <= 10) {
             setConsoleMsg('swiped right');
             swipeRight();
           }
         }
       } else if ((_startCoord["x"] - _endCoord["x"]) > 10) {
         if (swipeLeft != null) {
-          if (_getTheta() >= 170 && _getTheta() <= 180) {
+          if (_getSwipeTheta() >= 170 && _getSwipeTheta() <= 180) {
             setConsoleMsg('swiped left');
             swipeLeft();
           }
