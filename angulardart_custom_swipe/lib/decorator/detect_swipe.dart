@@ -6,9 +6,22 @@ class detectSwipe{
   Map _startCoord, _endCoord;
   Function swipeRight, swipeLeft;
 
+  void setConsoleMsg(msg) {
+    dom.window.console.info(msg);
+  }
+
   detectSwipe(dom.Element target) {
     target.onTouchStart.listen(_touchStart);
     target.onTouchEnd.listen(_touchEnd);
+
+    // touchEnd does not fire fix
+    // when a touchmove event occurs if the browser decides that this is a scroll event
+    // it will fire touchcancel and never fire touchend.
+    target.onTouchMove.listen((e){
+      setConsoleMsg('prevented touchcancel');
+      e.preventDefault();
+    });
+    //end fix
   }
 
   Map _getTouchCoordinates(dom.TouchEvent ev) {
@@ -38,12 +51,14 @@ class detectSwipe{
       if ((_startCoord["x"] - _endCoord["x"]) < -10) {
         if (swipeRight != null) {
           if (_getTheta() >= 0 && _getTheta() <= 10) {
+            setConsoleMsg('swiped right');
             swipeRight();
           }
         }
       } else if ((_startCoord["x"] - _endCoord["x"]) > 10) {
         if (swipeLeft != null) {
           if (_getTheta() >= 170 && _getTheta() <= 180) {
+            setConsoleMsg('swiped left');
             swipeLeft();
           }
         }
@@ -52,10 +67,12 @@ class detectSwipe{
   }
 
   void _touchStart(dom.TouchEvent ev) {
+    setConsoleMsg('touchStart');
     _startCoord = _getTouchCoordinates(ev);
   }
 
   void _touchEnd(dom.TouchEvent ev) {
+    setConsoleMsg('touchEnd');
     _endCoord = _getTouchCoordinates(ev);
     _makeSwipe();
   }
