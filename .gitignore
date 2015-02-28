@@ -57,3 +57,4 @@ example2/.pub
 example2/packages
 example2/web/packages
 example2/build
+example2/node_modules
